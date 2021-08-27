@@ -22,5 +22,6 @@ include_directories(
 )
 
 add_executable(create_map src/create_map_node.cpp)
+add_executable(Rgbd2PointCloud src/Rgbd2PointCloud_node.cpp)
 
 target_link_libraries(create_map ${catkin_LIBRARIES})

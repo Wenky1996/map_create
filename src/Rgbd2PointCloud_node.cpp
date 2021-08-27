@@ -18,7 +18,11 @@
 
 
 using std::queue;
+using std::string;
 
+
+void ImageHandler(const sensor_msgs::ImageConstPtr &msg_image);
+void DepthHandler(const sensor_msgs::ImageConstPtr &msg_depth);
 
 int main(int argc ,char **argv){
     ros::init(argc, argv, "rgbd2pointcloud");
@@ -29,9 +33,17 @@ int main(int argc ,char **argv){
     n.getParam("",image_topic);
     n.getParam("",depth_topic);
 
-    auto subImage = n.subscribe(image_topic, 100, ImageHandler);
-    auto subDepth = n.subscribe(depth_topic,100,DepthHandler);
+    auto subImage = n.subscribe("/camera/color/image_raw", 100, ImageHandler);
+    auto subDepth = n.subscribe("/camera/aligned_depth_to_color/image_raw",100,DepthHandler);
 
     ros::spin();
     return 0;
+}
+
+void ImageHandler(const sensor_msgs::ImageConstPtr &msg_image){
+
+}
+
+void DepthHandler(const sensor_msgs::ImageConstPtr &msg_depth){
+
 }
