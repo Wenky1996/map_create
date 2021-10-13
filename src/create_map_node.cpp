@@ -8,28 +8,35 @@
 #include <ros/ros.h>
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/image_encodings.h>
-#include <sensor_msgs/PointCloud.h>
+#include <sensor_msgs/PointCloud2.h>
 #include <sensor_msgs/Imu.h>
+#include <nav_msgs/Odometry.h>
 #include <std_msgs/Bool.h>
-#include <cv_bridge/cv_bridge.h>
 #include <message_filters/subscriber.h>
 
-void ImageHandler(const sensor_msgs::ImageConstPtr &img_msg);
-void DepthHandler(const sensor_msgs::ImageConstPtr &img_msg);
+
+
+void PointCloudHandler(const sensor_msgs::PointCloud2ConstPtr & pointCloudmsg) ;
+void KeyPoseHandler(const nav_msgs::Odometry::ConstPtr &vioKeyPose);
+
 
 int main(int argc ,char **argv){
-    ros::init(argc, argv, "map_create_");
+    ros::init(argc, argv, "map_create");
     ros::NodeHandle n;
     ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME, ros::console::levels::Info);
-    std::string image_topic{"/camera/color/image_raw"};
-    std::string depth_topic{"/camera/aligned_depth_to_color/image_raw"};
-    n.getParam("",image_topic);
-    n.getParam("",depth_topic);
 
-    auto subImage = n.subscribe(image_topic, 100, ImageHandler);
-    auto subDepth = n.subscribe(depth_topic,100,DepthHandler);
+    ros::Subscriber subPointCloud = n.subscribe<sensor_msgs::PointCloud2>("/fusion_pointcloud", 100, PointCloudHandler);
+    ros::Subscriber subkeyPose = n.subscribe("key_odometrys",2000,KeyPoseHandler);
 
     ros::spin();
     return 0;
+}
+
+void PointCloudHandler(const sensor_msgs::PointCloud2ConstPtr & pointCloudmsg) {
+
+}
+
+void KeyPoseHandler(const nav_msgs::Odometry::ConstPtr &vioKeyPose){
+
 }
 

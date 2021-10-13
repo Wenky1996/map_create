@@ -23,8 +23,8 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-#add_executable(create_map src/create_map_node.cpp)
+add_executable(create_map src/create_map_node.cpp)
 add_executable(Rgbd2PointCloud src/Rgbd2PointCloud_node.cpp)
 
-#target_link_libraries(create_map ${catkin_LIBRARIES})
+target_link_libraries(create_map ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(Rgbd2PointCloud ${catkin_LIBRARIES} ${PCL_LIBRARIES}  ${OpenCV_LIBS})
