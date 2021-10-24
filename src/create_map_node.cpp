@@ -12,7 +12,13 @@
 #include <sensor_msgs/PointCloud2.h>
 #include <nav_msgs/Odometry.h>
 #include <visualization_msgs/MarkerArray.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+
 #include <message_filters/subscriber.h>
+
+pcl::PointCloud<pcl::PointXYZRGB>::Ptr map;
+
 
 std::queue<nav_msgs::OdometryPtr> pose_vio_buf;
 std::queue<sensor_msgs::PointCloud2ConstPtr> pointcloud_buf;
@@ -61,6 +67,9 @@ void CreatMap(){
         if(abs(vio_stamp-pointCloud_stamp)<0.03){//1/30小于1帧
             pose_vio_buf.pop();
             pointcloud_buf.pop();
+            Eigen::Isometry3d transform_pose = Eigen::Isometry3d::Identity();
+            transform_pose.translate(vioPose->pose.pose.position);
+
             
         } else{
             if(vio_stamp>pointCloud_stamp){
@@ -74,3 +83,8 @@ void CreatMap(){
     }
 }
 
+Eigen::Isometry3d NavMsg2Isometry3D(sensor_msgs::PointCloud2ConstPtr NavMsg){
+    Eigen::Quaterniond pose_quaternion(1,0,0,0);
+    Eigen::Vector3d pose_transalte
+
+}
