@@ -5,6 +5,7 @@
 // @Contact: wenkyjong1996@gmail.com
 // @desc:
 #include <queue>
+
 #include <ros/ros.h>
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/image_encodings.h>
@@ -74,7 +75,7 @@ void DepthHandler(const sensor_msgs::ImageConstPtr &msg_depth){
 }
 
 void Rgbd2Point(){
-    while (1){
+    while (true){
         if(!depth_img_buf.empty()&&!color_img_buf.empty()){
             pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
             auto ptr_msg_color =color_img_buf.front();
