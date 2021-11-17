@@ -14,7 +14,7 @@
 #include <std_msgs/Bool.h>
 #include <cv_bridge/cv_bridge.h>
 #include <message_filters/subscriber.h>
-#include <opencv4/opencv2/opencv.hpp>
+#include <opencv2/opencv.hpp>
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
